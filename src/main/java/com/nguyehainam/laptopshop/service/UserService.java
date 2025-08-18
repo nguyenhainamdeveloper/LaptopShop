@@ -1,7 +1,5 @@
 package com.nguyehainam.laptopshop.service;
 
-package vn.hoidanit.laptopshop.service;
-
 import java.util.List;
 import java.util.Optional;
 
