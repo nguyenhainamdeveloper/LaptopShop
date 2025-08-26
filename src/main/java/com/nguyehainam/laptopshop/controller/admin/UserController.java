@@ -1,6 +1,7 @@
 package com.nguyehainam.laptopshop.controller.admin;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -8,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -72,6 +74,61 @@ public class UserController {
         // lưu user
         this.userService.handleSaveUser(newUserEntity);
         return "redirect:/admin/user";
+    }
+
+    @GetMapping("/admin/user/update/{id}") // GET
+    public String getUpdateUserPage(Model model, @PathVariable long id) {
+        Optional<User> currentUser = this.userService.getUserById(id);
+
+        if (currentUser.isEmpty()) {
+            throw new RuntimeException("User not found with id " + id);
+        }
+
+        model.addAttribute("newUser", currentUser.get());
+        return "admin/user/update";
+    }
+
+    @PostMapping("/admin/user/update")
+    public String postUpdateUser(Model model, @ModelAttribute("newUser") User updatedUser) {
+        Optional<User> currentUser = this.userService.getUserById(updatedUser.getId());
+
+        if (currentUser.isEmpty()) {
+            throw new RuntimeException("User not found with id " + updatedUser.getId());
+        }
+
+        User userToUpdate = currentUser.get();
+        userToUpdate.setAddress(updatedUser.getAddress());
+        userToUpdate.setFullName(updatedUser.getFullName());
+        userToUpdate.setPhone(updatedUser.getPhone());
+
+        this.userService.handleSaveUser(userToUpdate);
+
+        return "redirect:/admin/user";
+    }
+
+    @GetMapping("/admin/user/delete/{id}")
+    public String getDeleteUserPage(Model model, @PathVariable long id) {
+        model.addAttribute("id", id);
+        model.addAttribute("newUser", new User());
+        return "admin/user/delete";
+    }
+
+    @PostMapping("/admin/user/delete")
+    public String postDeleteUser(Model model, @ModelAttribute("newUser") User deletedUser) {
+        this.userService.deleteAUser(deletedUser.getId());
+        return "redirect:/admin/user";
+    }
+
+    @GetMapping("/admin/user/{id}")
+    public String getUserDetailPage(Model model, @PathVariable long id) {
+        Optional<User> userOptional = this.userService.getUserById(id);
+
+        if (userOptional.isEmpty()) {
+            throw new RuntimeException("User not found with id " + id);
+        }
+
+        model.addAttribute("user", userOptional.get());
+        return "admin/user/detail";
     }
 
 }
