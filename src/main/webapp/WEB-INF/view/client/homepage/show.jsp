@@ -6,7 +6,7 @@
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Document</title>
+            <title>Trang Chủ - Laptopshop</title>
 
             <!-- Google Web Fonts -->
             <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -78,7 +78,7 @@
                     <div class="tab-class text-center">
                         <div class="row g-4">
                             <div class="col-lg-4 text-start">
-                                <h1>Our Organic Products</h1>
+                                <h1>Sản phẩm nổi bật</h1>
                             </div>
                             <div class="col-lg-8 text-end">
                                 <ul class="nav nav-pills d-inline-flex text-center mb-5">
