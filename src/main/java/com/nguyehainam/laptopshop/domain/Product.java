@@ -30,7 +30,7 @@ public class Product {
 
     @NotNull
     @NotEmpty(message = "Chi tiết sản phẩm không được để trống")
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "MEDIUMTEXT")
     private String detailDesc;
 
     @NotNull
