@@ -143,7 +143,7 @@
 
 
 
-                <jsp:include page="../layout/footer.jsp" />
+                <jsp:include page="../layout/feature.jsp" />
 
 
                 <!-- Back to Top -->
