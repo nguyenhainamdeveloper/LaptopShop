@@ -29,7 +29,13 @@
                                             <div class="card-body">
                                                 <form:form method="post" action="/register"
                                                     modelAttribute="registerUser">
-                                                    <!-- First name + Last name -->
+                                                    <c:set var="errorPassword">
+                                                        <form:errors path="confirmPassword"
+                                                            cssClass="invalid-feedback" />
+                                                    </c:set>
+                                                    <c:set var="errorEmail">
+                                                        <form:errors path="email" cssClass="invalid-feedback" />
+                                                    </c:set>
                                                     <div class="row mb-3">
                                                         <div class="col-md-6">
                                                             <div class="form-floating mb-3 mb-md-0">
@@ -48,19 +54,22 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <!-- Email -->
                                                     <div class="form-floating mb-3">
-                                                        <form:input class="form-control" type="email"
-                                                            placeholder="name@example.com" path="email" />
+                                                        <form:input
+                                                            class="form-control ${not empty errorEmail ? 'is-invalid' : ''}"
+                                                            type="email" placeholder="name@example.com" path="email" />
                                                         <label>Email address</label>
+                                                        ${errorEmail}
                                                     </div>
-                                                    <!-- Password + Confirm password -->
                                                     <div class="row mb-3">
                                                         <div class="col-md-6">
                                                             <div class="form-floating mb-3 mb-md-0">
-                                                                <form:input class="form-control" type="password"
-                                                                    placeholder="Create a password" path="password" />
+                                                                <form:input
+                                                                    class="form-control ${not empty errorPassword ? 'is-invalid' : ''}"
+                                                                    type="password" placeholder="Create a password"
+                                                                    path="password" />
                                                                 <label>Password</label>
+                                                                ${errorPassword}
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
@@ -72,7 +81,6 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <!-- Button -->
                                                     <div class="mt-4 mb-0">
                                                         <div class="d-grid">
                                                             <button class="btn btn-primary btn-block">
@@ -92,6 +100,7 @@
                             </div>
                         </main>
                     </div>
+
                 </div>
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
                     crossorigin="anonymous"></script>
