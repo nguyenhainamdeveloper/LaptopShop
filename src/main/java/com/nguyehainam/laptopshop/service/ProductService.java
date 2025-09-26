@@ -33,6 +33,10 @@ public class ProductService {
         this.userService = userService;
     }
 
+    public Product createProduct(Product pr) {
+        return this.productRepository.save(pr);
+    }
+
     public Product saveProduct(Product pr) {
         return this.productRepository.save(pr);
     }
@@ -46,9 +50,6 @@ public class ProductService {
     }
 
     public void deleteProduct(long id) {
-        if (!this.productRepository.existsById(id)) {
-            throw new RuntimeException("Product not found with id  = " + id);
-        }
         this.productRepository.deleteById(id);
     }
 
@@ -101,4 +102,7 @@ public class ProductService {
         }
     }
 
+    public Cart fetchByUser(User user) {
+        return this.cartRepository.findByUser(user);
+    }
 }
