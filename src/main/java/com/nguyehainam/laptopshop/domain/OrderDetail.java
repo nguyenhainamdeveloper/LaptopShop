@@ -1,6 +1,5 @@
 package com.nguyehainam.laptopshop.domain;
 
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

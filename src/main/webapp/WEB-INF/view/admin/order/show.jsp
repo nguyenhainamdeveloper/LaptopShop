@@ -9,9 +9,9 @@
                 <meta charset="utf-8" />
                 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
                 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-                <meta name="description" content="Nguyễn Hải Nam - Dự án laptopshop" />
-                <meta name="author" content="Nguyễn Hải Nam" />
-                <title>Dashboard - Nguyễn Hải Nam</title>
+                <meta name="description" content="Nguyễn Nam - Dự án laptopshop" />
+                <meta name="author" content="Nguyễn Nam" />
+                <title>Manager Orders - Nguyễn Nam</title>
                 <link href="/css/styles.css" rel="stylesheet" />
                 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
             </head>
@@ -23,18 +23,16 @@
                     <div id="layoutSidenav_content">
                         <main>
                             <div class="container-fluid px-4">
-                                <h1 class="mt-4">Manage Products</h1>
+                                <h1 class="mt-4">Manage Orders</h1>
                                 <ol class="breadcrumb mb-4">
                                     <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
-                                    <li class="breadcrumb-item active">Product</li>
+                                    <li class="breadcrumb-item active">Order</li>
                                 </ol>
                                 <div class="mt-5">
                                     <div class="row">
                                         <div class="col-12 mx-auto">
-                                            <div class="d-flex justify-content-between">
-                                                <h3>Table products</h3>
-                                                <a href="/admin/product/create" class="btn btn-primary">Create a
-                                                    product</a>
+                                            <div class="d-flex">
+                                                <h3>Table Orders</h3>
                                             </div>
 
                                             <hr />
@@ -42,28 +40,28 @@
                                                 <thead>
                                                     <tr>
                                                         <th>ID</th>
-                                                        <th>Name</th>
-                                                        <th>Price</th>
-                                                        <th>Factory</th>
+                                                        <th>Total Price</th>
+                                                        <th>User</th>
+                                                        <th>Status</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <c:forEach var="product" items="${products}">
+                                                    <c:forEach var="order" items="${orders}">
                                                         <tr>
-                                                            <th>${product.id}</th>
-                                                            <td>${product.name}</td>
+                                                            <th>${order.id}</th>
                                                             <td>
                                                                 <fmt:formatNumber type="number"
-                                                                    value="${product.price}" /> đ
+                                                                    value="${order.totalPrice}" /> đ
                                                             </td>
-                                                            <td>${product.factory}</td>
+                                                            <td>${order.user.fullName}</td>
+                                                            <td>${order.status}</td>
                                                             <td>
-                                                                <a href="/admin/product/${product.id}"
+                                                                <a href="/admin/order/${order.id}"
                                                                     class="btn btn-success">View</a>
-                                                                <a href="/admin/product/update/${product.id}"
+                                                                <a href="/admin/order/update/${order.id}"
                                                                     class="btn btn-warning  mx-2">Update</a>
-                                                                <a href="/admin/product/delete/${product.id}"
+                                                                <a href="/admin/order/delete/${order.id}"
                                                                     class="btn btn-danger">Delete</a>
                                                             </td>
                                                         </tr>

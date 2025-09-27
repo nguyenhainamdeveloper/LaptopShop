@@ -13,9 +13,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.nguyehainam.laptopshop.domain.Product;
 import com.nguyehainam.laptopshop.domain.User;
 import com.nguyehainam.laptopshop.domain.dto.RegisterDTO;
+import com.nguyehainam.laptopshop.service.OrderService;
 import com.nguyehainam.laptopshop.service.ProductService;
 import com.nguyehainam.laptopshop.service.UserService;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,10 +32,14 @@ public class HomePageController {
 
     private final ProductService productService;
 
-    public HomePageController(ProductService productService, UserService userService, PasswordEncoder passwordEncoder) {
+    private final OrderService orderService;
+
+    public HomePageController(ProductService productService, UserService userService, PasswordEncoder passwordEncoder,
+            OrderService orderService) {
         this.productService = productService;
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
+        this.orderService = orderService;
     }
 
     @GetMapping("/")
@@ -78,6 +85,19 @@ public class HomePageController {
     @GetMapping("/access-deny")
     public String getDenyPage(Model model) {
         return "client/auth/deny";
+    }
+
+    @GetMapping("/order-history")
+    public String getOrderHistoryPage(Model model, HttpServletRequest request) {
+        User currentUser = new User();// null
+        HttpSession session = request.getSession(false);
+        long id = (long) session.getAttribute("id");
+        currentUser.setId(id);
+
+        List<Order> orders = this.orderService.fetchOrderByUser(currentUser);
+        model.addAttribute("orders", orders);
+
+        return "client/cart/order-history";
     }
 
 }
