@@ -28,6 +28,7 @@
                                     <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
                                     <li class="breadcrumb-item active">Product</li>
                                 </ol>
+
                                 <div class="mt-5">
                                     <div class="row">
                                         <div class="col-12 mx-auto">
@@ -38,7 +39,9 @@
                                             </div>
 
                                             <hr />
-                                            <table class=" table table-bordered table-hover">
+
+                                            <!-- Table products -->
+                                            <table class="table table-bordered table-hover">
                                                 <thead>
                                                     <tr>
                                                         <th>ID</th>
@@ -62,30 +65,59 @@
                                                                 <a href="/admin/product/${product.id}"
                                                                     class="btn btn-success">View</a>
                                                                 <a href="/admin/product/update/${product.id}"
-                                                                    class="btn btn-warning  mx-2">Update</a>
+                                                                    class="btn btn-warning mx-2">Update</a>
                                                                 <a href="/admin/product/delete/${product.id}"
                                                                     class="btn btn-danger">Delete</a>
                                                             </td>
                                                         </tr>
-
                                                     </c:forEach>
-
                                                 </tbody>
                                             </table>
+
+                                            <!-- Pagination -->
+                                            <nav aria-label="Page navigation">
+                                                <ul class="pagination justify-content-center">
+                                                    <!-- Previous -->
+                                                    <li class="page-item ${currentPage == 1 ? 'disabled' : ''}">
+                                                        <a class="page-link"
+                                                            href="${currentPage == 1 ? '#' : '/admin/product?page='}${currentPage - 1}"
+                                                            aria-label="Previous">
+                                                            <span aria-hidden="true">&laquo;</span>
+                                                        </a>
+                                                    </li>
+
+                                                    <!-- Page numbers -->
+                                                    <c:forEach begin="1" end="${totalPages}" var="page">
+                                                        <li class="page-item ${page == currentPage ? 'active' : ''}">
+                                                            <a class="page-link"
+                                                                href="/admin/product?page=${page}">${page}</a>
+                                                        </li>
+                                                    </c:forEach>
+
+                                                    <!-- Next -->
+                                                    <li
+                                                        class="page-item ${currentPage == totalPages ? 'disabled' : ''}">
+                                                        <a class="page-link"
+                                                            href="${currentPage == totalPages ? '#' : '/admin/product?page='}${currentPage + 1}"
+                                                            aria-label="Next">
+                                                            <span aria-hidden="true">&raquo;</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </nav>
+
                                         </div>
-
                                     </div>
-
                                 </div>
                             </div>
                         </main>
                         <jsp:include page="../layout/footer.jsp" />
                     </div>
                 </div>
+
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
                     crossorigin="anonymous"></script>
                 <script src="/js/scripts.js"></script>
-
             </body>
 
             </html>
